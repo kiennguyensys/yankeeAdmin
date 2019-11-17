@@ -34,6 +34,6 @@ module.exports = {
   apps: [
     new GraphQLApp(),
     // To create an initial user you can temporarily remove the authStrategy below
-    new AdminUIApp({ enableDefaultRoute: true, authStrategy }),
+    new AdminUIApp(),
   ],
 };
