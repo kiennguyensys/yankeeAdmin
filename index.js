@@ -11,7 +11,7 @@ const { User, Product, Post, PostCategory, ProductCategory, Comment } = require(
 
 const keystone = new Keystone({
     name: PROJECT_NAME,
-    adapter: new Adapter({ dropDatabase: true}),
+    adapter: new Adapter(),
 });
 
 keystone.createList('User', User);
