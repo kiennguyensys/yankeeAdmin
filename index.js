@@ -6,18 +6,19 @@ const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
 
 const PROJECT_NAME = "yankeesim";
-const { User, Product, Post, PostCategory, Comment } = require('./schema');
+const { User, Product, Post, PostCategory, ProductCategory, Comment } = require('./schema');
 
 
 const keystone = new Keystone({
     name: PROJECT_NAME,
-    adapter: new Adapter(),
+    adapter: new Adapter({ dropDatabase: true}),
 });
 
 keystone.createList('User', User);
 keystone.createList('Product', Product);
 keystone.createList('Post', Post);
 keystone.createList('PostCategory', PostCategory);
+keystone.createList('ProductCategory', ProductCategory);
 keystone.createList('Comment', Comment);
 
 keystone.createItems({

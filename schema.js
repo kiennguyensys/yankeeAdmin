@@ -59,6 +59,11 @@ exports.Product = {
     imageHover: { type: Text },
     description: { type: Text },
     updated: { type: DateTime, format: 'DD/MM/YYYY' },
+    categories: {
+      type: Relationship,
+      ref: 'ProductCategory',
+      many: true,
+    },
   },
   adminConfig: {
     defaultPageSize: 20,
@@ -100,6 +105,13 @@ exports.Post = {
 };
 
 exports.PostCategory = {
+  fields: {
+    name: { type: Text },
+    slug: { type: Slug, from: 'name' },
+  },
+};
+
+exports.ProductCategory = {
   fields: {
     name: { type: Text },
     slug: { type: Slug, from: 'name' },
