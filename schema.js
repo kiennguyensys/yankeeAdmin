@@ -1,6 +1,7 @@
 const {
   File,
   Float,
+  Integer,
   Text,
   Slug,
   Relationship,
@@ -10,6 +11,7 @@ const {
   CalendarDay,
   DateTime,
   OEmbed,
+  Content,
 } = require('@keystonejs/fields');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
 
@@ -58,12 +60,18 @@ exports.Product = {
     image: { type: Text },
     imageHover: { type: Text },
     description: { type: Text },
+    detailDescription: { type: Wysiwyg },
+    additionalInfo: { type: Wysiwyg },
+    information: {
+      type: Text,
+    },
     updated: { type: DateTime, format: 'DD/MM/YYYY' },
     categories: {
       type: Relationship,
       ref: 'ProductCategory',
       many: true,
     },
+    isFeatured: { type: Checkbox }
   },
   adminConfig: {
     defaultPageSize: 20,
@@ -86,6 +94,11 @@ exports.Post = {
     categories: {
       type: Relationship,
       ref: 'PostCategory',
+      many: true,
+    },
+    tags: {
+      type: Relationship,
+      ref: 'PostTag',
       many: true,
     },
     status: {
@@ -111,10 +124,73 @@ exports.PostCategory = {
   },
 };
 
+exports.PostTag = {
+  fields: {
+    name: { type: Text },
+    slug: { type: Slug, from: 'name' },
+  },
+};
+
+exports.Notification = {
+  fields: {
+    title: { type: Text },
+    image: { type: Text },
+    slug: { type: Slug, from: 'title' },
+    author: {
+      type: Relationship,
+      ref: 'User',
+    },
+    body: { type: Wysiwyg },
+    posted: { type: DateTime, format: 'DD/MM/YYYY' },
+  },
+  adminConfig: {
+    defaultPageSize: 20,
+    defaultColumns: 'title',
+    defaultSort: 'title',
+  },
+  labelResolver: item => item.title,
+};
+
+exports.ContactForm = {
+  fields: {
+    name: { type: Text },
+    email: { type: Text },
+    tel: { type: Text },
+    body: { type: Wysiwyg },
+    posted: { type: DateTime, format: 'DD/MM/YYYY' },
+  },
+  adminConfig: {
+    defaultPageSize: 20,
+    defaultColumns: 'name, tel',
+    defaultSort: 'email',
+  },
+  labelResolver: item => item.email,
+};
+
+exports.Order = {
+  fields: {
+    userID: { type: Integer },
+    itemID: { type: Integer },
+    quantity: { type: Integer },
+    info: { type: Text },
+    paymentMethod: { type: Text},
+    isProceeding: { type: Checkbox },
+    isDone: { type: Checkbox },
+    date: { type: DateTime, format: 'DD/MM/YYYY' },
+  },
+  adminConfig: {
+    defaultPageSize: 20,
+    defaultColumns: 'itemID, quantity, paymentMethod',
+    defaultSort: 'date',
+  },
+  labelResolver: item => item.userID,
+};
+
 exports.ProductCategory = {
   fields: {
     name: { type: Text },
     slug: { type: Slug, from: 'name' },
+    MenuSelected: { type: Checkbox },
   },
 };
 
@@ -124,6 +200,23 @@ exports.Comment = {
     originalPost: {
       type: Relationship,
       ref: 'Post',
+    },
+    author: {
+      type: Relationship,
+      ref: 'User',
+    },
+    posted: { type: DateTime },
+  },
+  labelResolver: item => item.body,
+};
+
+exports.Review = {
+  fields: {
+    ratingStarsNumber: { type: Integer },
+    body: { type: Text, isMultiline: true },
+    originalProduct: {
+      type: Relationship,
+      ref: 'Product',
     },
     author: {
       type: Relationship,

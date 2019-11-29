@@ -4,22 +4,29 @@ const { Text, Checkbox, Password, Relationship, Float, CloudinaryImage } = requi
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
+const { NextApp } = require('@keystonejs/app-next');
 
 const PROJECT_NAME = "yankeesim";
-const { User, Product, Post, PostCategory, ProductCategory, Comment } = require('./schema');
+const { User, Product, ProductCategory, Order, Post, PostCategory, PostTag, Comment, Review, Notification, ContactForm } = require('./schema');
 
 
 const keystone = new Keystone({
     name: PROJECT_NAME,
-    adapter: new Adapter(),
+    adapter: new Adapter({ dropDatabase: true }),
 });
 
 keystone.createList('User', User);
 keystone.createList('Product', Product);
 keystone.createList('Post', Post);
 keystone.createList('PostCategory', PostCategory);
+keystone.createList('PostTag', PostTag);
 keystone.createList('ProductCategory', ProductCategory);
-keystone.createList('Comment', Comment);
+keystone.createList('ProductReview', Review);
+keystone.createList('Order', Order);
+keystone.createList('PostComment', Comment);
+keystone.createList('Notification', Notification);
+keystone.createList('ContactForm', ContactForm);
+
 
 keystone.createItems({
     User: [{name: 'kiennguyensys', email: 'tkien2703@gmail.com', isAdmin: true, password: '123456abc'}]
