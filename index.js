@@ -4,7 +4,6 @@ const { Text, Checkbox, Password, Relationship, Float, CloudinaryImage } = requi
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
-const { NextApp } = require('@keystonejs/app-next');
 
 const PROJECT_NAME = "yankeesim";
 const { User, Product, ProductCategory, Order, Post, PostCategory, PostTag, Comment, Review, Notification, ContactForm } = require('./schema');
