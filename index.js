@@ -27,13 +27,17 @@ keystone.createList('Notification', Notification);
 keystone.createList('ContactForm', ContactForm);
 
 
-keystone.createItems({
-    User: [{name: 'kiennguyensys', email: 'tkien2703@gmail.com', isAdmin: true, password: '123456abc'}]
-});
+// keystone.createItems({
+//     User: [{name: 'kiennguyensys', email: 'tkien2703@gmail.com', isAdmin: true, password: '123456abc'}]
+// });
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
   list: 'User',
+  config: {
+    identityField: 'email',
+    secretField: 'password',
+  },
 });
 
 module.exports = {
@@ -41,6 +45,6 @@ module.exports = {
   apps: [
     new GraphQLApp(),
     // To create an initial user you can temporarily remove the authStrategy below
-    new AdminUIApp(),
+    new AdminUIApp({authStrategy}),
   ],
 };

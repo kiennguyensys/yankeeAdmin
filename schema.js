@@ -44,13 +44,13 @@ exports.User = {
     },
   },
   //To create an initial user you can temporarily remove access controls
-  // access: {
-  //   read: access.userIsAdminOrOwner,
-  //   update: access.userIsAdminOrOwner,
-  //   create: access.userIsAdmin,
-  //   delete: access.userIsAdmin,
-  //   auth: true,
-  // },
+  access: {
+    read: access.userIsAdminOrOwner,
+    update: access.userIsAdminOrOwner,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin,
+    auth: true,
+  },
 }
 
 exports.Product = {
