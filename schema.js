@@ -195,6 +195,11 @@ exports.ProductCategory = {
 };
 
 exports.Comment = {
+  access: {
+    create: ({ authentication: { item, listKey }, existingItem }) => true,
+    update: ({ authentication: { item, listKey }, existingItem }) => true,
+    delete: ({ authentication: { item, listKey }, existingItem }) => true,
+  },
   fields: {
     body: { type: Text, isMultiline: true },
     originalPost: {

@@ -5,6 +5,7 @@ const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
 
+
 const PROJECT_NAME = "yankeesim";
 const { User, Product, ProductCategory, Order, Post, PostCategory, PostTag, Comment, Review, Notification, ContactForm } = require('./schema');
 
@@ -12,6 +13,8 @@ const { User, Product, ProductCategory, Order, Post, PostCategory, PostTag, Comm
 const keystone = new Keystone({
     name: PROJECT_NAME,
     adapter: new Adapter(),
+    cookieSecret: "bd69a98acde93bc1d1e9ef337d13c98774acbe0ec05489ef2874afaf9b4f54c3",
+    secureCookies: true,
 });
 
 keystone.createList('User', User);
@@ -40,11 +43,13 @@ const authStrategy = keystone.createAuthStrategy({
   },
 });
 
+const admin = new AdminUIApp({ authStrategy });
+
 module.exports = {
   keystone,
   apps: [
     new GraphQLApp(),
     // To create an initial user you can temporarily remove the authStrategy below
-    new AdminUIApp({authStrategy}),
+    admin,
   ],
 };
