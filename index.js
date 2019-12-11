@@ -43,7 +43,7 @@ const authStrategy = keystone.createAuthStrategy({
   },
 });
 
-const admin = new AdminUIApp({ authStrategy });
+const admin = new AdminUIApp();
 
 module.exports = {
   keystone,
