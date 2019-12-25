@@ -12,6 +12,7 @@ const {
   DateTime,
   OEmbed,
   Content,
+  CloudinaryImage
 } = require('@keystonejs/fields');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
 
@@ -170,10 +171,13 @@ exports.ContactForm = {
 exports.Order = {
   fields: {
     userID: { type: Integer },
-    itemID: { type: Integer },
-    quantity: { type: Integer },
-    info: { type: Text },
-    paymentMethod: { type: Text},
+    name: { type: Text },
+    phone: { type: Text },
+    ProductsInfo: { type: Wysiwyg },
+    total: { type: Number },
+    billingAddress: { type: Wysiwyg },
+    orderNotes: { type: Text },
+    paymentMethod: { type: Text },
     isProceeding: { type: Checkbox },
     isDone: { type: Checkbox },
     date: { type: DateTime, format: 'DD/MM/YYYY' },
