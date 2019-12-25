@@ -7,7 +7,7 @@ const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
 
 
 const PROJECT_NAME = "yankeesim";
-const { User, Product, ProductCategory, Order, Post, PostCategory, PostTag, Comment, Review, Notification, ContactForm } = require('./schema');
+const { User, Product, ProductCategory, ProductTag, Order, Post, PostCategory, PostTag, Comment, Review, Notification, ContactForm } = require('./schema');
 
 
 const keystone = new Keystone({
@@ -23,6 +23,7 @@ keystone.createList('Post', Post);
 keystone.createList('PostCategory', PostCategory);
 keystone.createList('PostTag', PostTag);
 keystone.createList('ProductCategory', ProductCategory);
+keystone.createList('ProductTag', ProductTag);
 keystone.createList('ProductReview', Review);
 keystone.createList('Order', Order);
 keystone.createList('PostComment', Comment);

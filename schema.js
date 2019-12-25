@@ -35,10 +35,19 @@ const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
 exports.User = {
   fields: {
     name: { type: Text },
+    username: {
+      type: Text,
+      isUnique: true,
+    },
     email: {
       type: Text,
       isUnique: true,
     },
+    phone: { type: Text },
+    company: { type: Text },
+    address: { type: Text },
+    city: { type: Text },
+    countryCode: { type: Text },
     isAdmin: { type: Checkbox },
     password: {
       type: Password,
@@ -57,22 +66,24 @@ exports.User = {
 exports.Product = {
   fields: {
     title: { type: Text },
-    price: { type: Float},
+    SKU: { type: Text , isUnique: true },
+    price: { type: Float },
     image: { type: Text },
     imageHover: { type: Text },
     description: { type: Text },
     detailDescription: { type: Wysiwyg },
     additionalInfo: { type: Wysiwyg },
-    information: {
-      type: Text,
-    },
-    updated: { type: DateTime, format: 'DD/MM/YYYY' },
+    availability: { type: Text },
     categories: {
       type: Relationship,
       ref: 'ProductCategory',
       many: true,
     },
-    isFeatured: { type: Checkbox }
+    tags: {
+      type: Relationship,
+      ref: 'ProductTag',
+      many: true,
+    },
   },
   adminConfig: {
     defaultPageSize: 20,
@@ -170,24 +181,35 @@ exports.ContactForm = {
 
 exports.Order = {
   fields: {
-    userID: { type: Integer },
+    orderStatus: { type: Text },
+    date: { type: DateTime, format: 'DD/MM/YYYY' },
     name: { type: Text },
+    company: { type: Text },
+    email: { type: Text },
     phone: { type: Text },
-    ProductsInfo: { type: Wysiwyg },
-    total: { type: Number },
-    billingAddress: { type: Wysiwyg },
+    address: { type: Text },
+    city: { type: Text },
+    countryCode: { type: Text },
+    cartDiscountAmount: { type: Number },
+    subtotalAmount: { type: Number },
+    totalAmount: { type: Number },
+    shippingMethod: { type: Text },
     orderNotes: { type: Text },
     paymentMethod: { type: Text },
-    isProceeding: { type: Checkbox },
-    isDone: { type: Checkbox },
-    date: { type: DateTime, format: 'DD/MM/YYYY' },
+    SKU: { type: Text },
+    itemOrder: { type: Number },
+    itemName: { type: Text },
+    quantity: { type: Number },
+    itemCost: { type: Number },
+    couponCost: { type: Text },
+    discountAmount: { type: Text }
   },
   adminConfig: {
     defaultPageSize: 20,
-    defaultColumns: 'itemID, quantity, paymentMethod',
+    defaultColumns: 'orderStatus, date',
     defaultSort: 'date',
   },
-  labelResolver: item => item.userID,
+  labelResolver: item => item.SKU,
 };
 
 exports.ProductCategory = {
@@ -195,6 +217,13 @@ exports.ProductCategory = {
     name: { type: Text },
     slug: { type: Slug, from: 'name' },
     MenuSelected: { type: Checkbox },
+  },
+};
+
+exports.ProductTag = {
+  fields: {
+    name: { type: Text },
+    slug: { type: Slug, from: 'name' },
   },
 };
 
