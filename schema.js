@@ -15,6 +15,13 @@ const {
   CloudinaryImage
 } = require('@keystonejs/fields');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
+const { CloudinaryAdapter } = require('@keystonejs/file-adapters');
+
+const cloudinaryAdapter = new CloudinaryAdapter({
+  cloudName: 'yankeesim',
+  apiKey: '489475927217965',
+  apiSecret: 'ocE5XqrAxmkc863NvoTMcseLn2Y',
+});
 
 //Access Control
 const userIsAdmin = ({ authentication: { item: user } }) => Boolean(user && user.isAdmin);
@@ -96,7 +103,7 @@ exports.Product = {
 exports.Post = {
   fields: {
     title: { type: Text },
-    image:{ type: Text },
+    image: { type: CloudinaryImage, adapter: cloudinaryAdapter },
     slug: { type: Slug, from: 'title' },
     brief_description: { type: Text },
     author: {

@@ -14,7 +14,6 @@ const keystone = new Keystone({
     name: PROJECT_NAME,
     adapter: new Adapter(),
     cookieSecret: "bd69a98acde93bc1d1e9ef337d13c98774acbe0ec05489ef2874afaf9b4f54c3",
-    secureCookies: true,
 });
 
 keystone.createList('User', User);
@@ -31,9 +30,9 @@ keystone.createList('Notification', Notification);
 keystone.createList('ContactForm', ContactForm);
 
 
-// keystone.createItems({
-//     User: [{name: 'kiennguyensys', email: 'tkien2703@gmail.com', isAdmin: true, password: '123456abc'}]
-// });
+keystone.createItems({
+    User: [{name: 'kiennguyensys', email: 'tkien2703@gmail.com', isAdmin: true, password: '123456abc'}]
+});
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
@@ -44,7 +43,7 @@ const authStrategy = keystone.createAuthStrategy({
   },
 });
 
-const admin = new AdminUIApp();
+const admin = new AdminUIApp({ authStrategy, enableDefaultRoute: true, isAccessAllowed: ({ authentication: { item: user, listKey: list } }) => !!user && !!user.isAdmin });
 
 module.exports = {
   keystone,
