@@ -33,6 +33,7 @@
     "multer": "^1.1.0",
     "sessionstore": "^1.3.7",
     "xls-to-json-lc": "^0.3.4",
-    "xlsx-to-json-lc": "^0.4.1"
+    "xlsx-to-json-lc": "^0.4.1",
+    "xlsx": "^0.15.4"
   }
 }
