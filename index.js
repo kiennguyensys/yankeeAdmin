@@ -24,6 +24,7 @@ const keystone = new Keystone({
     name: PROJECT_NAME,
     adapter: new Adapter(),
     cookieSecret: secret,
+    secureCookies: false
 });
 
 keystone.createList('User', User);
@@ -59,8 +60,7 @@ const admin = new AdminUIApp({ authStrategy, enableDefaultRoute: true, isAccessA
 
 const staticApp = new StaticApp({
       path: "/uploader",
-      src: 'public',
-      fallback: 'index.html',
+      src: './public',
     })
 
 const DBUpload = (list, result) => {
