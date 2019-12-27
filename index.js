@@ -9,11 +9,11 @@ var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
 const express = require('express');
 const session = require('express-session');
-const sessionstore = require('sessionstore');
-
 var multer = require('multer');
 var bodyParser = require('body-parser');
+
 const secret = "bd69a98acde93bc1d1e9ef337d13c98774acbe0ec05489ef2874afaf9b4f54c3"
+const distDir = './dist'
 
 
 const PROJECT_NAME = "yankeesim";
@@ -53,10 +53,12 @@ const authStrategy = keystone.createAuthStrategy({
   },
 });
 
+const graphQL = new GraphQLApp()
+
 const admin = new AdminUIApp({ authStrategy, enableDefaultRoute: true, isAccessAllowed: ({ authentication: { item: user, listKey: list } }) => !!user && !!user.isAdmin });
 
 const staticApp = new StaticApp({
-      path: '/uploader',
+      path: "/uploader",
       src: 'public',
       fallback: 'index.html',
     })
@@ -96,8 +98,8 @@ const DBUpload = (list, result) => {
 }
 
 const dev = process.env.NODE_ENV !== 'production';
-const preparations = [new GraphQLApp(), admin, staticApp].map(app =>
-  app.prepareMiddleware({ keystone, dev })
+const preparations = [graphQL, admin, staticApp].map(app =>
+  app.prepareMiddleware({ keystone, distDir, dev })
 );
 
 Promise.all(preparations).then(async middlewares => {
@@ -183,3 +185,8 @@ Promise.all(preparations).then(async middlewares => {
 
 
 });
+
+module.exports = {
+  keystone,
+  apps: [graphQL, admin, staticApp],
+};
