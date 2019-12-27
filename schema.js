@@ -190,6 +190,7 @@ exports.Order = {
   fields: {
     orderStatus: { type: Text },
     date: { type: DateTime, format: 'DD/MM/YYYY' },
+    orderNumber: { type: Text },
     name: { type: Text },
     company: { type: Text },
     email: { type: Text },
@@ -208,7 +209,7 @@ exports.Order = {
     itemName: { type: Text },
     quantity: { type: Text },
     itemCost: { type: Text },
-    couponCost: { type: Text },
+    couponCode: { type: Text },
     discountAmount: { type: Text }
   },
   adminConfig: {
