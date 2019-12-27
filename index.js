@@ -77,7 +77,6 @@ const DBUpload = (list, result) => {
     }
     `;
 
-    console.log(mutation)
 
     const url = "http://localhost:3000/admin/api";
     const opts = {
