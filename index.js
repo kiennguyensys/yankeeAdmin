@@ -57,7 +57,7 @@ const authStrategy = keystone.createAuthStrategy({
 
 const graphQL = new GraphQLApp()
 
-const admin = new AdminUIApp({ cors: { origin: false, credentials: false }, authStrategy, enableDefaultRoute: true, isAccessAllowed: ({ authentication: { item: user, listKey: list } }) => !!user && !!user.isAdmin });
+const admin = new AdminUIApp({ authStrategy, enableDefaultRoute: true, isAccessAllowed: ({ authentication: { item: user, listKey: list } }) => !!user && !!user.isAdmin });
 
 const staticApp = new StaticApp({
       path: "/uploader",
@@ -115,8 +115,10 @@ Promise.all(preparations).then(async middlewares => {
       saveUninitialized: true,
     }))
 
-    server.use(cors())
+
     server.use(middlewares).listen(port);
+
+    server.use(cors())
 
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: false }));
