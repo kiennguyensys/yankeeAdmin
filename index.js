@@ -9,6 +9,7 @@ var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
 const express = require('express');
 const session = require('express-session');
+var cors = require('cors');
 var multer = require('multer');
 var bodyParser = require('body-parser');
 
@@ -56,7 +57,7 @@ const authStrategy = keystone.createAuthStrategy({
 
 const graphQL = new GraphQLApp()
 
-const admin = new AdminUIApp({ authStrategy, enableDefaultRoute: true, isAccessAllowed: ({ authentication: { item: user, listKey: list } }) => !!user && !!user.isAdmin });
+const admin = new AdminUIApp({ cors: { origin: false, credentials: false }, authStrategy, enableDefaultRoute: true, isAccessAllowed: ({ authentication: { item: user, listKey: list } }) => !!user && !!user.isAdmin });
 
 const staticApp = new StaticApp({
       path: "/uploader",
@@ -114,6 +115,7 @@ Promise.all(preparations).then(async middlewares => {
       saveUninitialized: true,
     }))
 
+    server.use(cors())
     server.use(middlewares).listen(port);
 
     server.use(bodyParser.json())
@@ -141,7 +143,6 @@ Promise.all(preparations).then(async middlewares => {
 
     /** API path that will upload the files */
     server.post('/upload', function(req, res) {
-        console.log('in upload')
 
         var exceltojson;
         upload(req,res,function(err){
