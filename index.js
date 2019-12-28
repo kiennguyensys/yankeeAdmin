@@ -79,8 +79,9 @@ const DBUpload = (list, result) => {
     }
     `;
 
+    console.log(mutation)
 
-    const url = "http://localhost:3000/admin/api";
+    const url = "https://yankeesim-admin.herokuapp.com/admin/api";
     const opts = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -112,10 +113,10 @@ Promise.all(preparations).then(async middlewares => {
       saveUninitialized: true,
     }))
 
-    server.use(middlewares).listen(3000);
+    server.use(middlewares).listen(process.env.PORT || 3000);
 
-    server.use(bodyParser.json());  
-    server.use(bodyParser.urlencoded({ extended: false }));
+    server.use(bodyParser.json())
+    server.use(bodyParser.urlencoded({ extended: true }));
 
     var storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
@@ -139,6 +140,7 @@ Promise.all(preparations).then(async middlewares => {
 
     /** API path that will upload the files */
     server.post('/upload', function(req, res) {
+        console.log('in upload')
 
         var exceltojson;
         upload(req,res,function(err){
@@ -146,6 +148,7 @@ Promise.all(preparations).then(async middlewares => {
                  res.json({error_code:1,err_desc:err});
                  return;
             }
+
             const listName = req.body.listname
 
             /** Multer gives us file info in req.file object */

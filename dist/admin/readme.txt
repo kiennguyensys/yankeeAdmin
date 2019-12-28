@@ -1,1 +1,1 @@
-this is production directory
+this is uploads dir
