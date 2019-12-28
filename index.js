@@ -99,7 +99,7 @@ const DBUpload = (list, result) => {
 }
 
 const dev = process.env.NODE_ENV !== 'production';
-const port = process.env.PORT || 3000;
+const port = 3000;
 const preparations = [graphQL, admin, staticApp].map(app =>
   app.prepareMiddleware({ keystone, distDir, dev })
 );
