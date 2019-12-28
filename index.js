@@ -100,7 +100,7 @@ const DBUpload = (list, result) => {
 }
 
 const dev = process.env.NODE_ENV !== 'production';
-const port = 3000;
+const port = 80;
 const preparations = [graphQL, admin, staticApp].map(app =>
   app.prepareMiddleware({ keystone, distDir, dev })
 );
@@ -117,6 +117,7 @@ Promise.all(preparations).then(async middlewares => {
 
 
     server.use(middlewares).listen(port);   
+    server.use(cors())
 
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: false }));
