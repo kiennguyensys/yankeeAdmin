@@ -117,7 +117,6 @@ Promise.all(preparations).then(async middlewares => {
 
 
     server.use(middlewares).listen(port);   
-    server.use(cors())
 
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: false }));
