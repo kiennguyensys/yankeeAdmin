@@ -99,6 +99,7 @@ const DBUpload = (list, result) => {
 }
 
 const dev = process.env.NODE_ENV !== 'production';
+const port = process.env.PORT || 3000;
 const preparations = [graphQL, admin, staticApp].map(app =>
   app.prepareMiddleware({ keystone, distDir, dev })
 );
@@ -113,10 +114,10 @@ Promise.all(preparations).then(async middlewares => {
       saveUninitialized: true,
     }))
 
-    server.use(middlewares).listen(process.env.PORT || 3000);
+    server.use(middlewares).listen(port);
 
     server.use(bodyParser.json())
-    server.use(bodyParser.urlencoded({ extended: true }));
+    server.use(bodyParser.urlencoded({ extended: false }));
 
     var storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
