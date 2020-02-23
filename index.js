@@ -4,7 +4,7 @@ const { Text, Checkbox, Password, Relationship, Float, CloudinaryImage } = requi
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const { StaticApp } = require('@keystonejs/app-static');
-const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
+const { MongooseAdapter } = require('@keystonejs/adapter-mongoose');
 var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
 const express = require('express');
@@ -20,12 +20,9 @@ const distDir = './dist'
 const PROJECT_NAME = "yankeesim";
 const { User, Product, ProductCategory, ProductTag, Order, Post, PostCategory, PostTag, Comment, Review, Notification, ContactForm } = require('./schema');
 
-
 const keystone = new Keystone({
-    name: PROJECT_NAME,
-    adapter: new Adapter(),
-    cookieSecret: secret,
-    secureCookies: false
+  name: 'yankeesim',
+  adapter: new MongooseAdapter(),
 });
 
 keystone.createList('User', User);
