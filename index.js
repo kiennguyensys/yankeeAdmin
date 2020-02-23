@@ -57,7 +57,7 @@ const authStrategy = keystone.createAuthStrategy({
 
 const graphQL = new GraphQLApp()
 
-const admin = new AdminUIApp({ authStrategy, enableDefaultRoute: true, isAccessAllowed: ({ authentication: { item: user, listKey: list } }) => !!user && !!user.isAdmin });
+const admin = new AdminUIApp();
 
 const staticApp = new StaticApp({
       path: "/uploader",

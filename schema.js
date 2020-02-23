@@ -104,7 +104,7 @@ exports.Product = {
 exports.Post = {
   fields: {
     title: { type: Text },
-    image: { type: CloudinaryImage, adapter: cloudinaryAdapter },
+    image: { type: Text },
     slug: { type: Slug, from: 'title' },
     brief_description: { type: Text },
     author: {
