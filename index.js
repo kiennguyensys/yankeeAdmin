@@ -23,7 +23,7 @@ const { User, Product, ProductCategory, ProductTag, Order, Post, PostCategory, P
 
 const keystone = new Keystone({
     name: PROJECT_NAME,
-    adapter: new Adapter(),
+    adapter: new Adapter({ dropDatabase: true }),
     cookieSecret: secret,
     secureCookies: false
 });
