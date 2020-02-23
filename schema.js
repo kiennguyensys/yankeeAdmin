@@ -21,6 +21,7 @@ const cloudinaryAdapter = new CloudinaryAdapter({
   cloudName: 'yankeesim',
   apiKey: '489475927217965',
   apiSecret: 'ocE5XqrAxmkc863NvoTMcseLn2Y',
+  folder: 'yankeesimPost',
 });
 
 //Access Control
