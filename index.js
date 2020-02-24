@@ -14,7 +14,7 @@ var cors = require('cors');
 var multer = require('multer');
 var bodyParser = require('body-parser');
 
-const secret = "bd69a98acde93bc1d1e9ef337d13c98774acbe0ec05489ef2874afaf9b4f54c3"
+const secret = "79882d46fca152f48e74bead10ce1cd3caec9a8602ed7836a3fce2fc249a5d2f"
 const distDir = './dist'
 
 
@@ -24,7 +24,8 @@ const { User, Product, ProductCategory, ProductTag, Order, Post, PostCategory, P
 const keystone = new Keystone({
   name: 'yankeesim',
   adapter: new KnexAdapter(),
-  cookieSecret: secret
+  cookieSecret: secret,
+  secureCookies: false
 });
 
 keystone.createList('User', User);
