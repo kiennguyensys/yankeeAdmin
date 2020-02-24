@@ -24,8 +24,7 @@ const { User, Product, ProductCategory, ProductTag, Order, Post, PostCategory, P
 const keystone = new Keystone({
   name: 'yankeesim',
   adapter: new KnexAdapter(),
-  cookieSecret: secret,
-  secureCookies: false
+  cookieSecret: secret
 });
 
 keystone.createList('User', User);
